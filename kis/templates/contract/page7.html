@@ -1,0 +1,87 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+{% include "contract/contractinfo.html" %}
+
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/editcontract">Заявка</a></li>
+    <li><a href="/page2contract">Подготовленный<br>документ</a></li>
+    <li><a href="/page3contract">Дополнительные<br>документы</a></li>
+    <li><a href="/page4contract">Статус</a></li>
+    <li><a href="/page5contract">Согласование</a></li>
+    <li><a href="/page6contract">Email<br>руководителю</a></li>
+    <li class="active"><a href="/page7contract">Email<br>уведомление</a></li>
+    <li><a href="/page8contract">Лист<br>согласования</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<h3>История отправки email уведомлений</h3>
+
+{# Вывод страниц #}
+<div class="paginator">
+    <span class="step-links">
+	{% if d.has_previous %}
+	    <a href="?page={{ d.previous_page_number }}">Предыдущая</a>
+	{% endif %}
+
+    <span class="current">
+	Стр. {{ d.number }} из {{ d.paginator.num_pages }}
+    </span>
+
+	{% if d.has_next %}
+	    <a href="?page={{ d.next_page_number }}">Следующая</a>
+	{% endif %}
+    </span>
+</div><!-- paginator -->
+
+
+<table>
+<tr>
+<th>Дата</th>
+<th>Время</th>
+<th>Email адрес</th>
+<th>Содержание сообщения</th>
+</tr>
+
+{% for row in d %}
+    <tr>
+	<td>{{ row.2 }}</td>
+	<td>{{ row.3 }}</td>
+	<td>{{ row.4 }}</td>
+	<td>{{ row.1 }}</td>
+    </tr>
+{% endfor %}
+
+</table>
+
+{# Вывод страниц #}
+<div class="paginator">
+    <span class="step-links">
+	{% if d.has_previous %}
+	    <a href="?page={{ d.previous_page_number }}">Предыдущая</a>
+	{% endif %}
+
+    <span class="current">
+	Стр. {{ d.number }} из {{ d.paginator.num_pages }}
+    </span>
+
+	{% if d.has_next %}
+	    <a href="?page={{ d.next_page_number }}">Следующая</a>
+	{% endif %}
+    </span>
+</div><!-- paginator -->
+
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

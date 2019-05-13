@@ -1,0 +1,77 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+{% include "contract/contractinfo.html" %}
+
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/editcontract">Заявка</a></li>
+    <li><a href="/page2contract">Подготовленный<br>документ</a></li>
+    <li><a href="/page3contract">Дополнительные<br>документы</a></li>
+    <li><a href="/page4contract">Статус</a></li>
+    <li><a href="/page5contract">Согласование</a></li>
+    <li><a href="/page6contract">Email<br>руководителю</a></li>
+    <li><a href="/page7contract">Email<br>уведомление</a></li>
+    <li class="active"><a href="/page8contract">Лист<br>согласования</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<h3>Список лиц согласования</h3>
+
+<form action="" method="POST">{% csrf_token %}
+
+<table>
+<tr>
+<th>Включить</th>
+<th>Согласующий (Телефон)</th>
+<th>Добавил в список</th>
+<th>Дата добавления</th>
+<th>Мнение(по версии)<br>(Приложению)</th>
+<th>Дата мнения</th>
+</tr>
+
+{# инициатор заявки #}
+{% comment %}
+<tr>
+    <td><center><input type="checkbox" value="on" checked disabled /></center></td>
+    <td>{{ data.11 }} {{ data.10 }} ({{ data.13 }})</td>
+    <td>Инициатор заявки</td>
+</tr>
+{% endcomment %}
+
+{# Руководитель #}
+<tr>
+    <td><center><input type="checkbox" value="on" checked disabled /></center></td>
+    <td>{{ boss.0 }} ({{ boss.1 }})</td>
+    <td>Руководитель</td>
+</tr>
+
+
+
+{% for row in d %}
+    <tr>
+	<td><center><input type="checkbox" name="{{ row.14 }}" ></center></td>
+	<td>{{ row.2 }} ({{ row.3 }})</td>
+	<td>{{ row.10 }} ({{ row.11 }})</td>
+	<td>{{ row.9 }}</td>
+	<td>{{ row.5 }} (Версия {{ row.6 }}, приложение от {{ row.12 }})</td>
+	<td>{{ row.7 }}</td>
+    </tr>
+{% endfor %}
+
+</table>
+
+<div class="f-actions"><button type="submit" class="f-bu">Сформировать печатную форму</button></div>
+</form>
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

@@ -1,0 +1,108 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+
+<p></p>
+
+
+
+<ul class="f-nav f-nav-tabs">
+    <li class="active"><a href="/contract">Список</a></li>
+    <li><a href="/newcontract">Новая заявка</a></li>
+    <li><a href="/tovote">На согласование</a></li>
+    <li><a href="/personresult">Отчет по согласователям</a></li>
+    <!-- <li><a href="/contractopt">Группа рассылки</a></li> -->
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<center>
+    <form action="" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <div class="f-row">
+		<label>{{ form.search.label }}</label>
+		<div class="f-input">{{ form.search }}</div>
+	    </div><!-- f-row -->
+	    <div class="f-row">
+		<label>{{ form.status.label }}</label>
+		<div class="f-input">{{ form.status }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Применить</button></div>
+    </form>
+
+</center>
+</div><!-- g-row -->
+
+
+<div class="g-row">
+
+{# Вывод страниц #}
+<div class="paginator">
+    <span class="step-links">
+	{% if data.has_previous %}
+	    <a href="?page={{ data.previous_page_number }}">Предыдущая</a>
+	{% endif %}
+
+    <span class="current">
+	Стр. {{ data.number }} из {{ data.paginator.num_pages }}
+    </span>
+
+	{% if data.has_next %}
+	    <a href="?page={{ data.next_page_number }}">Следующая</a>
+	{% endif %}
+    </span>
+</div><!-- paginator -->
+
+<table border=0>
+<tr>
+<th>Номер<br>заявки</th>
+<th>Дата</th>
+<th>Контрагент</th>
+<th>Тема</th>
+<th>Статус</th>
+<th>Исполнитель<br>(телефон)</th>
+<th>Руководитель</th>
+</tr>
+
+    {% for row in data %}
+	<tr>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.0 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.2 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.3 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.4 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.6 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.10 }} {{ row.11 }}<br>{{ row.13 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.43 }};">{{ row.17 }} {{ row.16 }}</a></td>
+	</tr>
+    {% endfor %}
+
+</table>
+
+
+{# Вывод страниц #}
+<div class="paginator">
+    <span class="step-links">
+	{% if data.has_previous %}
+	    <a href="?page={{ data.previous_page_number }}">Предыдущая</a>
+	{% endif %}
+
+    <span class="current">
+	Стр. {{ data.number }} из {{ data.paginator.num_pages }}
+    </span>
+
+	{% if data.has_next %}
+	    <a href="?page={{ data.next_page_number }}">Следующая</a>
+	{% endif %}
+    </span>
+</div><!-- paginator -->
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

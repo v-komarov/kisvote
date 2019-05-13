@@ -1,0 +1,77 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+{% include "contract/contractinfo.html" %}
+
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/editcontract">Заявка</a></li>
+    <li class="active"><a href="/page2contract">Подготовленный<br>документ</a></li>
+    <li><a href="/page3contract">Дополнительные<br>документы</a></li>
+    <li><a href="/page4contract">Статус</a></li>
+    <li><a href="/page5contract">Согласование</a></li>
+    <li><a href="/page6contract">Email<br>руководителю</a></li>
+    <li><a href="/page7contract">Email<br>уведомление</a></li>
+    <li><a href="/page8contract">Лист<br>согласования</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<h3>Подготовленный документ</h3>
+
+
+
+<center>
+    <form action="" enctype="multipart/form-data" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <legend>
+		Версия документа<br>
+		Файл: <a href="/page2contract/?doc_ver={{ data.0 }}">{{ data.21 }}</a><br>
+		Версия: {{ data.24 }}<br>
+		Дата: {{ data.26 }}<br>
+		Загрузил: {{ data.29 }} {{ data.28 }}<br>
+	    </legend>
+	    <div class="f-row">
+		<label>{{ form.ver_load.label }}</label>
+		<div class="f-input">{{ form.ver_load }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Загрузить</button></div>
+    </form>
+
+</center>
+
+
+
+
+
+<center>
+    <form action="" enctype="multipart/form-data" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <legend>
+		Приложение<br>
+		Файл: <a href="/page2contract/?doc_app={{ data.0 }}">{{ data.33 }}</a><br>
+		Дата: {{ data.36 }}<br>
+		Загрузил: {{ data.39 }} {{ data.38 }}<br>
+	    </legend>
+	    <div class="f-row">
+		<label>{{ form2.app_load.label }}</label>
+		<div class="f-input">{{ form2.app_load }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Загрузить</button></div>
+    </form>
+
+</center>
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

@@ -1,0 +1,72 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+
+<p></p>
+
+
+
+<ul class="f-nav f-nav-tabs">
+    <li class="active"><a href="/admina/readall/">Доступ ко всем</a></li>
+    <li><a href="/admina/groups/">Состав групп</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+</div><!-- g-row -->
+
+
+
+<div class="g-row">
+<table border=0>
+    <tr>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Должность</th>
+        <th>Email</th>
+        <th>Статус</th>
+        <th>Удалить</th>
+    </tr>
+
+    {% for row in data %}
+        <tr>
+            <td>{{ row.1 }}</td>
+            <td>{{ row.2 }}</td>
+            <td>{{ row.3 }}</td>
+            <td>{{ row.4 }}</td>
+            <td>{{ row.6 }}</td>
+            <td>{{ row.5 }}</td>
+            <td><a href="/admina/delaccessall/?user_id={{ row.0 }}">X</a></td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+
+
+<center>
+    <form action="" enctype="multipart/form-data" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <legend>
+	    </legend>
+	    <div class="f-row">
+		<label>{{ form.user.label }}</label>
+		<div class="f-input">{{ form.user }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Добавить</button></div>
+    </form>
+
+</center>
+
+
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

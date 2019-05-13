@@ -1,0 +1,83 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+{% include "contract/contractinfo.html" %}
+
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/editcontract">Заявка</a></li>
+    <li><a href="/page2contract">Подготовленный<br>документ</a></li>
+    <li><a href="/page3contract">Дополнительные<br>документы</a></li>
+    <li><a href="/page4contract">Статус</a></li>
+    <li class="active"><a href="/page5contract">Согласование</a></li>
+    <li><a href="/page6contract">Email<br>руководителю</a></li>
+    <li><a href="/page7contract">Email<br>уведомление</a></li>
+    <li><a href="/page8contract">Лист<br>согласования</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<h3>Список лиц согласования</h3>
+<h3>Следующий согласующий: {{ n.0 }} {{ n.1 }}
+{% if data.5 == '3' and n %}
+    <a href="/page5contract/?remind={{ data.0 }}&email={{ n.2 }}"><mark>Напомнить</mark></a>
+{% endif %}
+</h3>
+
+<table>
+<tr>
+<th>Очередность</th>
+<th>Согласующий (Телефон)</th>
+<th>Добавил в список</th>
+<th>Дата добавления</th>
+<th>Мнение(по версии)<br>(Приложению)</th>
+<th>Дата мнения</th>
+<th>Задержка (дней)</th>
+<th>Удаление</th>
+</tr>
+
+{% for row in d %}
+    <tr>
+	<td>{{ row.13 }}</td>
+	<td>{{ row.2 }} ({{ row.3 }})</td>
+	<td>{{ row.10 }} ({{ row.11 }})</td>
+	<td>{{ row.9 }}</td>
+	<td>{{ row.5 }} (Версия {{ row.6 }}, приложение от {{ row.12 }})</td>
+	<td>{{ row.7 }}</td>
+	<td>{{ row.8 }}</td>
+	<td><a href="/page5contract/?delete_id={{ row.0 }}"><mark><center>X</center></mark></a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+
+
+<center>
+    <form action="" enctype="multipart/form-data" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <legend>
+	    </legend>
+	    <div class="f-row">
+		<label>{{ form.person.label }}</label>
+		<div class="f-input">{{ form.person }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Добавить</button></div>
+    </form>
+
+</center>
+
+
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

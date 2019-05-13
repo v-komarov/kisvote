@@ -1,0 +1,76 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+{% include "contract/contractinfo.html" %}
+
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/editcontract">Заявка</a></li>
+    <li><a href="/page2contract">Подготовленный<br>документ</a></li>
+    <li><a href="/page3contract">Дополнительные<br>документы</a></li>
+    <li class="active"><a href="/page4contract">Статус</a></li>
+    <li><a href="/page5contract">Согласование</a></li>
+    <li><a href="/page6contract">Email<br>руководителю</a></li>
+    <li><a href="/page7contract">Email<br>уведомление</a></li>
+    <li><a href="/page8contract">Лист<br>согласования</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<h3>Статус заявки</h3>
+
+<table>
+<tr>
+<th>Дата</th>
+<th>Время</th>
+<th>Установленный статус</th>
+<th>Статус установил (телефон)</th>
+<th>Комментарий</th>
+</tr>
+
+{% for row in d %}
+    <tr>
+	<td>{{ row.4 }}</td>
+	<td>{{ row.5 }}</td>
+	<td>{{ row.3 }}</td>
+	<td>{{ row.7 }} {{ row.6 }} ({{ row.9 }})</td>
+	<td>{{ row.2 }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+
+
+<center>
+    <form action="" enctype="multipart/form-data" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <legend>
+	    </legend>
+	    <div class="f-row">
+		<label>{{ form.comment.label }}</label>
+		<div class="f-input">{{ form.comment }}</div>
+	    </div><!-- f-row -->
+	    <div class="f-row">
+		<label>{{ form.status.label }}</label>
+		<div class="f-input">{{ form.status }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Добавить</button></div>
+    </form>
+
+</center>
+
+
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

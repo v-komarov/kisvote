@@ -1,0 +1,80 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+{% include "contract/contractinfo.html" %}
+
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/editcontract">Заявка</a></li>
+    <li><a href="/page2contract">Подготовленный<br>документ</a></li>
+    <li class="active"><a href="/page3contract">Дополнительные<br>документы</a></li>
+    <li><a href="/page4contract">Статус</a></li>
+    <li><a href="/page5contract">Согласование</a></li>
+    <li><a href="/page6contract">Email<br>руководителю</a></li>
+    <li><a href="/page7contract">Email<br>уведомление</a></li>
+    <li><a href="/page8contract">Лист<br>согласования</a></li>
+</ul><!-- f-nav f-nav-tabs -->
+
+
+<h3>Прикрепленные документы (файлы)</h3>
+
+<table>
+<tr>
+<th>Дата</th>
+<th>Документ (файл)</th>
+<th>Описание документа (файла)</th>
+<th>Прикрепил (телефон)</th>
+{% if data.5 == '0' %}
+    <th>Удалить</th>
+{% endif %}
+</tr>
+
+{% for row in d %}
+    <tr>
+	<td>{{ row.6 }}</td>
+	<td><a href="/page3contract/?doc_id={{ row.0 }}">{{ row.4 }}</a></td>
+	<td>{{ row.2 }}</td>
+	<td>{{ row.9 }} {{ row.8 }} ({{ row.11 }})</td>
+	{% if data.5 == '0' %}
+	    <td><a href="/page3contract/?deletedoc={{ row.0 }}"><center><mark>X</mark></center></a></td>
+	{% endif %}
+</tr>
+{% endfor %}
+
+</table>
+
+
+
+<center>
+    <form action="" enctype="multipart/form-data" method="post" class="forms">{% csrf_token %}
+	<fieldset>
+	    <legend>
+	    </legend>
+	    <div class="f-row">
+		<label>{{ form.comment.label }}</label>
+		<div class="f-input">{{ form.comment }}</div>
+	    </div><!-- f-row -->
+	    <div class="f-row">
+		<label>{{ form.file_load.label }}</label>
+		<div class="f-input">{{ form.file_load }}</div>
+	    </div><!-- f-row -->
+	</fieldset>
+	<div class="f-actions"><button type="submit" class="f-bu">Добавить</button></div>
+    </form>
+
+</center>
+
+
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}

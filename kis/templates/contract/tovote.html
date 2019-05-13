@@ -1,0 +1,57 @@
+{% include "header.html" %}
+
+<div class="g">
+<div class="g-row">
+
+{% include "menu.html" %}
+
+
+<p></p>
+
+<ul class="f-nav f-nav-tabs">
+    <li><a href="/contract">Список</a></li>
+    <li><a href="/newcontract">Новая заявка</a></li>
+    <li class="active"><a href="/tovote">На согласование</a></li>
+    <li><a href="/personresult">Отчет по согласователям</a></li>       
+</ul><!-- f-nav f-nav-tabs -->
+
+
+
+<div class="g-row">
+
+
+<table border=0>
+<tr>
+<th>Номер<br>заявки</th>
+<th>Дата</th>
+<th>Контрагент</th>
+<th>Тема</th>
+<th>Статус</th>
+<th>Исполнитель<br>(телефон)</th>
+<th>Руководитель</th>
+</tr>
+
+    {% for row in data %}
+	{% if row.17 == 0 %}
+	<tr>
+	{% else %}
+        <tr style="background-color:#D8F8F3;">
+	{% endif %}
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.0 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.2 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.3 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.4 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.6 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.8 }} {{ row.7 }}<br>{{ row.10 }}</a></td>
+	    <td><a href="/editcontract?contract_id={{ row.0 }}" style="color: {{ row.15 }};">{{ row.12 }} {{ row.11 }}</a></td>
+	</tr>
+    {% endfor %}
+
+</table>
+
+
+
+</div><!-- g-row -->
+</div><!-- g -->
+
+{% include "footer.html" %}
