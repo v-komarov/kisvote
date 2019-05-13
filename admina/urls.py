@@ -3,13 +3,14 @@ from	django.contrib.staticfiles.urls	import	staticfiles_urlpatterns
 from	django.conf	import	settings
 
 
-from admina.views import ReadAll, Groups, DelAccessAll
+from admina.views import ReadAll, Groups, DelAccessAll, DelGroupData
 
 
 
 urlpatterns = [
     url(r'readall', ReadAll),
     url(r'groups', Groups),
-    url(r'delaccessall', DelAccessAll)
+    url(r'delaccessall', DelAccessAll),
+    url(r'delgroupdata', DelGroupData)
 
 ]

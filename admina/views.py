@@ -7,7 +7,7 @@ from	django.http	import	HttpResponseRedirect
 
 
 from kis.lib.userdata import AccessAdmin
-from kis.lib.admina import GetGroupsData, GetAccessAll
+from kis.lib.admina import GetGroupsData, GetAccessAll, DelReadAll, DelUserGroup, AddReadAll, AddUserGroup
 from admina.forms import UserForm, GroupsForm
 
 
@@ -28,6 +28,7 @@ def	ReadAll(request):
         form = UserForm(request.POST)
         if form.is_valid():
             user_id = form.cleaned_data['user']
+            AddReadAll(user_id)
 
 
     data = GetAccessAll()
@@ -52,6 +53,14 @@ def	Groups(request):
         return render_to_response("admina/notaccess.html",c)
 
 
+    if request.method == 'POST':
+        form = GroupsForm(request.POST)
+        if form.is_valid():
+            user_id = form.cleaned_data['user']
+            group_id = form.cleaned_data['group']
+            AddUserGroup(user_id, group_id)
+
+
 
     data = GetGroupsData()
 
@@ -72,7 +81,26 @@ def DelAccessAll(request):
         return render_to_response("admina/notaccess.html",c)
 
     user_id = request.GET['user_id']
+    DelReadAll(user_id)
 
-    print user_id
 
     return HttpResponseRedirect('/admina/readall')
+
+
+
+
+## Удаление привязки пользователя к группе
+def DelGroupData(request):
+
+    ### --- Проверка доступа к этой закладки ---
+    if AccessAdmin(request) != 'OK':
+        c = RequestContext(request,{})
+        return render_to_response("admina/notaccess.html",c)
+
+    user_id = request.GET['user_id']
+    group_id = request.GET['group_id']
+
+    DelUserGroup(user_id,group_id)
+
+
+    return HttpResponseRedirect('/admina/groups')

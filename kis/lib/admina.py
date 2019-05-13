@@ -36,3 +36,27 @@ def	GetGroupsList():
     data = cursor.fetchall()
 
     return data
+
+
+
+### Удаление прав ко всем заявкам
+def DelReadAll(user_id):
+    return "OK"
+
+
+
+### Удаление пользователя из группы
+def DelUserGroup(user_id,group_id):
+    return "OK"
+
+
+
+### Добавление пользователю прав доступа ко всем заявкам
+def AddReadAll(user_id):
+    return "OK"
+
+
+
+### Добавление пользователя к группу
+def AddUserGroup(user_id,group_id):
+    return "OK"
