@@ -41,22 +41,30 @@ def	GetGroupsList():
 
 ### Удаление прав ко всем заявкам
 def DelReadAll(user_id):
+    cursor = connections['main'].cursor()
+    cursor.execute("DELETE FROM t_d_access WHERE t_user_id=%s;", (user_id,))
     return "OK"
 
 
 
 ### Удаление пользователя из группы
 def DelUserGroup(user_id,group_id):
+    cursor = connections['main'].cursor()
+    cursor.execute("DELETE FROM t_d_persons_groups WHERE user_id=%s AND group_id=%s;", (user_id,group_id))
     return "OK"
 
 
 
 ### Добавление пользователю прав доступа ко всем заявкам
 def AddReadAll(user_id):
+    cursor = connections['main'].cursor()
+    cursor.execute("SELECT t_adddreadall(%s);", (user_id,))
     return "OK"
 
 
 
 ### Добавление пользователя к группу
 def AddUserGroup(user_id,group_id):
+    cursor = connections['main'].cursor()
+    cursor.execute("SELECT t_adddgroup(%s,%s);", (user_id,group_id))
     return "OK"
