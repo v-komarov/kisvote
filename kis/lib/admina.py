@@ -68,3 +68,19 @@ def AddUserGroup(user_id,group_id):
     cursor = connections['main'].cursor()
     cursor.execute("SELECT t_adddgroup(%s,%s);", (user_id,group_id))
     return "OK"
+
+
+
+### Изменение инициатора заявки
+def ChAuthor(d,author_after,user_id):
+    cursor = connections['main'].cursor()
+    cursor.execute("SELECT t_d_chauthor(%s,%s,%s);", (d,author_after,user_id))
+    return "OK"
+
+
+### История изменений инициаторов заявок
+def GetChAuthor():
+    cursor = connections['main'].cursor()
+    cursor.execute("SELECT * FROM t_d_show_changing_author;")
+    data = cursor.fetchall()
+    return data

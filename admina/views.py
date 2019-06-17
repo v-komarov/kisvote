@@ -4,11 +4,11 @@ from	django.template	import	Context, loader, RequestContext
 from	django.core.context_processors	import	csrf
 from	django.shortcuts	import	render_to_response
 from	django.http	import	HttpResponseRedirect
+from	django.core.paginator	import	Paginator, InvalidPage, EmptyPage
 
-
-from kis.lib.userdata import AccessAdmin
-from kis.lib.admina import GetGroupsData, GetAccessAll, DelReadAll, DelUserGroup, AddReadAll, AddUserGroup
-from admina.forms import UserForm, GroupsForm
+from kis.lib.userdata import AccessAdmin, GetUserKod
+from kis.lib.admina import GetGroupsData, GetAccessAll, DelReadAll, DelUserGroup, AddReadAll, AddUserGroup, ChAuthor as ChA, GetChAuthor
+from admina.forms import UserForm, GroupsForm, AuthorForm
 
 
 
@@ -104,3 +104,62 @@ def DelGroupData(request):
 
 
     return HttpResponseRedirect('/admina/groups')
+
+
+
+
+
+
+### --- Интерфейс изменение автора заявки ---
+def	ChAuthor(request):
+
+
+
+    ### --- Получение номера страницы ---
+    try:
+        page = int(request.GET.get('page',1))
+        request.session['page'] = page
+    except:
+        pass
+
+    try:
+        page = int(request.session['page'])
+    except:
+        page = 1
+
+
+
+
+
+
+    ### --- Проверка доступа к этой закладки ---
+    if AccessAdmin(request) != 'OK':
+        c = RequestContext(request,{})
+        return render_to_response("admina/notaccess.html",c)
+
+
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            user_id = form.cleaned_data['user']
+            num = form.cleaned_data['num']
+            ChA(num,user_id,GetUserKod(request))
+
+
+
+    data = GetChAuthor()
+
+    paginator = Paginator(data,50)
+    try:
+        data_page = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        data_page = paginator.page(paginator.num_pages)
+
+
+
+    form = AuthorForm()
+    c = RequestContext(request,{'data':data_page, 'form': form})
+    c.update(csrf(request))
+    return render_to_response("admina/author.html",c)
+
+

@@ -24,3 +24,12 @@ class	GroupsForm(forms.Form):
         super(GroupsForm,self).__init__(*args,**kwargs)
         self.fields['user'].choices = GetDPersonList()
         self.fields['group'].choices = GetGroupsList()
+
+
+
+class	AuthorForm(forms.Form):
+    user = forms.ChoiceField(label='Выбор пользователя',required=False,choices=[])
+    num = forms.IntegerField(label='Номер заявки',required=False)
+    def	__init__(self,*args,**kwargs):
+        super(AuthorForm,self).__init__(*args,**kwargs)
+        self.fields['user'].choices = GetDPersonList()
